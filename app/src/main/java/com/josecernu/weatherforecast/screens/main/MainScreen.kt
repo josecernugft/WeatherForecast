@@ -1,10 +1,10 @@
-package com.josecernu.weatherforecast.screens
+package com.josecernu.weatherforecast.screens.main
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun WeatherSplashScreen(navController: NavController) {
-    Text(text = "SplashScreen")
+fun MainScreen(navController: NavController) {
+    Text(text = "Main Screen")
 }
