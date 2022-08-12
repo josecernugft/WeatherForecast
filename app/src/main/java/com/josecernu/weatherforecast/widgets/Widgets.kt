@@ -54,7 +54,7 @@ fun WeatherDetailRow(weather: WeatherItem) {
             }
             Text(text = buildAnnotatedString {
                 withStyle(style = SpanStyle(
-                    color = Color.Blue.copy(alpha = 0.7f),
+                    color = Color.Red.copy(alpha = 0.7f),
                     fontWeight = FontWeight.SemiBold
                 )
                 ) {

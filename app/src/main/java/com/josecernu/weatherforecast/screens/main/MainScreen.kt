@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -111,12 +112,14 @@ fun MainContent(data: Weather) {
         ) {
             LazyColumn(modifier = Modifier.padding(2.dp),
                 contentPadding = PaddingValues(1.dp)) {
-                items(items = data.list) {
-                    item: WeatherItem ->
-                    WeatherDetailRow(weather = item)
+                itemsIndexed(data.list) {
+                    index, item: WeatherItem ->
+                    //To get only one item per day
+                    if (index % 8 == 0) {
+                        WeatherDetailRow(weather = item)
+                    }
                 }
             }
-
         }
     }
 }
