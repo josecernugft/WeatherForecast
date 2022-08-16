@@ -15,7 +15,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -43,9 +45,8 @@ fun SearchScreen(navController: NavController) {
                 SearchBar(modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .align(Alignment.CenterHorizontally)){ mCity ->
-                    navController.navigate(WeatherScreens.MainScreen.name + "/$mCity")
-
+                    .align(Alignment.CenterHorizontally)) {
+                    lat, lon -> navController.navigate(WeatherScreens.MainScreen.name + "/$lat/$lon")
                 }
             }
         }
@@ -56,24 +57,38 @@ fun SearchScreen(navController: NavController) {
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    onSearch: (String) -> Unit = {}) {
-    val searchQueryState = rememberSaveable { mutableStateOf("") }
+    onSearch: (String, String) -> Unit) {
+    val searchQueryLatState = rememberSaveable { mutableStateOf("") }
+    val searchQueryLonState = rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val valid = remember(searchQueryState.value){
-        searchQueryState.value.trim().isNotEmpty()
+    val validLat = remember(searchQueryLatState.value){
+        searchQueryLatState.value.trim().isNotEmpty()
     }
-
+    val validLon = remember(searchQueryLonState.value){
+        searchQueryLonState.value.trim().isNotEmpty()
+    }
+    val focusManager = LocalFocusManager.current
     Column {
         CommonTextField(
-            valueState = searchQueryState,
-            placeholder = "Seattle",
+            valueState = searchQueryLatState,
+            placeholder = "Lat",
+            onAction = KeyboardActions (
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                    ) {
+                //onSearch(searchQueryState.value.trim())
+                //searchQueryState.value = ""
+                //keyboardController?.hide()
+            })
+        CommonTextField(
+            valueState = searchQueryLonState,
+            placeholder = "Lon",
             onAction = KeyboardActions {
-                if (!valid) return@KeyboardActions
-                onSearch(searchQueryState.value.trim())
-                searchQueryState.value = ""
+                if ((!validLon) || (!validLat)) return@KeyboardActions
+                onSearch(searchQueryLatState.value.trim(), searchQueryLatState.value.trim())
+                searchQueryLatState.value = ""
+                searchQueryLonState.value = ""
                 keyboardController?.hide()
             })
-
     }
 
 }
