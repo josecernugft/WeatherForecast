@@ -31,6 +31,7 @@ import com.josecernu.weatherforecast.R
 import com.josecernu.weatherforecast.data.DataOrException
 import com.josecernu.weatherforecast.model.Weather
 import com.josecernu.weatherforecast.model.WeatherItem
+import com.josecernu.weatherforecast.navigation.WeatherScreens
 import com.josecernu.weatherforecast.utils.formatDate
 import com.josecernu.weatherforecast.utils.formatDateTime
 import com.josecernu.weatherforecast.utils.formatDecimals
@@ -57,6 +58,9 @@ fun MainScaffold(weather: Weather, navController: NavController) {
     Scaffold(topBar = {
         WeatherAppBar(title = weather.city.name + ", ${weather.city.country}",
             navController = navController,
+            onAddActionClicked = {
+                navController.navigate(WeatherScreens.SearchScreen.name)
+            },
             elevation = 5.dp) {
             Log.d("MainScreen", "MainScaffold: ButtonClicked")
         }
