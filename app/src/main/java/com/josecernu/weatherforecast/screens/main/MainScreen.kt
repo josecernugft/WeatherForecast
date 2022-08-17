@@ -32,10 +32,10 @@ fun MainScreen(
     lat: String,
     lon: String,
 ) {
-    Log.d("MainScreen", "MainScreen: Lat: $lat")
+    Log.d("MainScreen", "MainScreen: Lat: $lat & lon: &lon")
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)) {
-        value = mainViewModel.getWeatherData(lat, "37.6156")
+        value = mainViewModel.getWeatherData(lat, lon)
     }.value
 
     if (weatherData.loading == true) {

@@ -84,7 +84,7 @@ fun SearchBar(
             placeholder = "Lon",
             onAction = KeyboardActions {
                 if ((!validLon) || (!validLat)) return@KeyboardActions
-                onSearch(searchQueryLatState.value.trim(), searchQueryLatState.value.trim())
+                onSearch(searchQueryLatState.value.trim(), searchQueryLonState.value.trim())
                 searchQueryLatState.value = ""
                 searchQueryLonState.value = ""
                 keyboardController?.hide()
