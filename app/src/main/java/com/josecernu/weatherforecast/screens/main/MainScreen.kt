@@ -53,7 +53,9 @@ fun MainScaffold(weather: Weather, navController: NavController) {
             onAddActionClicked = {
                 navController.navigate(WeatherScreens.SearchScreen.name)
             },
-            elevation = 5.dp,) {
+            elevation = 5.dp,
+        lat = weather.city.coord.lat.toString(),
+        lon = weather.city.coord.lon.toString()) {
             Log.d("MainScreen", "MainScaffold: ButtonClicked")
         }
     }) {
