@@ -20,8 +20,8 @@ steps:
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'printVar'
-    #tasks: 'assembleDebug'
+    #tasks: 'printVar'
+    tasks: 'assembleDebug'
   env:
     API_WEATHER_FORECAST_DEBUG: $(API_WEATHER_FORECAST_DEBUG)
     
