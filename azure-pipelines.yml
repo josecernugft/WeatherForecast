@@ -15,8 +15,8 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      export API_TEST=$(API_TEST)
-      echo "##vso[task.setvariable variable=API_TEST]$(API_TEST)"
+      #export API_TEST=$(API_TEST)
+      #echo "##vso[task.setvariable variable=API_TEST]$(API_TEST)"
       env
       #launchctl setenv API_TEST $(API_TEST)
       #launchctl setenv "API_TEST" "$(API_TEST)">
