@@ -1,6 +1,7 @@
 package com.josecernu.weatherforecast
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.josecernu.weatherforecast.navigation.WeatherNavigation
 import com.josecernu.weatherforecast.ui.theme.WeatherForecastTheme
+import com.josecernu.weatherforecast.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            Log.d("API TEST", "onCreate: api_key-> "+Constants.API_TEST)
             WeatherApp()
         }
     }
