@@ -16,6 +16,7 @@ steps:
     script: |
       # Write your commands here
       export API_WEATHER_FORECAST_DEBUG=$(API_WEATHER_FORECAST_DEBUG)
+      echo "##vso[task.setvariable variable=API_WEATHER_FORECAST_DEBUG]$(API_WEATHER_FORECAST_DEBUG)"
 - task: Gradle@2
   inputs:
     workingDirectory: ''
