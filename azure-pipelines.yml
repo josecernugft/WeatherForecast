@@ -10,16 +10,6 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      #export API_TEST=$(API_TEST)
-      #echo "##vso[task.setvariable variable=API_TEST;]tomate"
-      env
-      #launchctl setenv API_TEST $(API_TEST)
-      #launchctl setenv "API_TEST" "$(API_TEST)">
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -33,10 +23,5 @@ steps:
     tasks: 'printVar'
     #tasks: 'assembleDebug'
   env:
-    API_TEST: $(API_TEST_SIN_CIFRAR)
+    API_WEATHER_FORECAST_DEBUG: $(API_WEATHER_FORECAST_DEBUG)
     
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      env
