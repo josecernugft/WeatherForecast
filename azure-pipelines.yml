@@ -33,7 +33,7 @@ steps:
     tasks: 'printVar'
     #tasks: 'assembleDebug'
   env:
-    API_TEST: ${{variables.API_TEST}}
+    API_TEST: $(API_TEST)
     
 - task: Bash@3
   inputs:
