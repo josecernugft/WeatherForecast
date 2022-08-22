@@ -13,4 +13,3 @@
 .externalNativeBuild
 .cxx
 local.propertiest
-app/src/main/java/com/josecernu/weatherforecast/utils/Constants.kt

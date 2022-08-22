@@ -21,6 +21,7 @@ android {
             useSupportLibrary true
         }
         buildConfigField "String" , "API_KEY", "\"${System.getenv("API_WEATHER_FORECAST_DEBUG")}\""
+        buildConfigField "String" , "API_TEST", "\"${System.getenv("API_TEST")}\""
     }
 
     buildTypes {
@@ -51,7 +52,7 @@ android {
     task printVar {
         println ("Test printVar")
         println System.getenv("ANDROID_HOME")
-        println System.getenv("API_WEATHER_FORECAST_DEBUG")
+        println System.getenv("API_TEST")
     }
 }
 
