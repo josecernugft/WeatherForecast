@@ -15,7 +15,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      export API_WEATHER_FORECAST_DEBUG=$API_WEATHER_FORECAST_DEBUG
+      export API_WEATHER_FORECAST_DEBUG=$(API_WEATHER_FORECAST_DEBUG)
 - task: Gradle@2
   inputs:
     workingDirectory: ''
