@@ -20,7 +20,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        buildConfigField "String" , "API_KEY", "\"$OPEN_WEATHER_API_KEY\""
+        buildConfigField "String" , "API_KEY", "\"${System.getenv("API_WEATHER_FORECAST_DEBUG")}\""
     }
 
     buildTypes {
@@ -46,6 +46,12 @@ android {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
+    }
+
+    task printVar {
+        println ("Test printVar")
+        println System.getenv("ANDROID_HOME")
+        println System.getenv("API_WEATHER_FORECAST_DEBUG")
     }
 }
 
