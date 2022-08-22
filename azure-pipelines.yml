@@ -17,6 +17,7 @@ steps:
       # Write your commands here
       export API_TEST=$(API_TEST)
       echo "##vso[task.setvariable variable=API_TEST]$(API_TEST)"
+      env
       #launchctl setenv API_TEST $(API_TEST)
       #launchctl setenv "API_TEST" "$(API_TEST)">
 - task: Gradle@2
@@ -29,4 +30,11 @@ steps:
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
+    tasks: 'printVar'
+    #tasks: 'assembleDebug'
+    
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      env
