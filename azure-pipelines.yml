@@ -23,4 +23,16 @@ steps:
     tasks: 'assembleDebug'
   env:
     API_WEATHER_FORECAST_DEBUG: $(API_WEATHER_FORECAST_DEBUG)
+
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    jdkArchitectureOption: 'x64'
+    jdkVersion: 1.11
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'testDebug'
     
