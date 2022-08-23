@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Log.d("API TEST", "onCreate: api_key-> "+Constants.API_TEST)
             WeatherApp()
         }
     }
