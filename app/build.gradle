@@ -20,12 +20,15 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        buildConfigField "String" , "API_KEY", "\"${System.getenv("API_WEATHER_FORECAST_DEBUG")}\""
-        buildConfigField "String" , "API_TEST", "\"${System.getenv("API_TEST")}\""
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String" , "API_KEY", "\"${System.getenv("API_WEATHER_FORECAST_DEBUG")}\""
+        }
         release {
+            buildConfigField "String" , "API_KEY", "\"${System.getenv("API_WEATHER_FORECAST_RELEASE")}\""
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
