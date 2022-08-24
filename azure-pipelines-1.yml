@@ -65,3 +65,10 @@ steps:
       $ANDROID_HOME/platform-tools/adb devices
 
       echo "Emulator started"
+
+- task: AppCenterTest@1
+  inputs:
+    appFile: '../app/release/app-release.apk'
+    artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+    prepareTests: false
+    runTests: false
