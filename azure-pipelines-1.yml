@@ -36,3 +36,12 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'testRelease'
     
+- task: AndroidSigning@2
+  inputs:
+    apkFiles: '**/*.apk'
+    jarsign: true
+    jarsignerKeystoreFile: '../keystore/release.keystore'
+    jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+    jarsignerKeystoreAlias: 'key0'
+    jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+    zipalign: true
