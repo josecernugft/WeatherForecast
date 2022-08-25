@@ -56,7 +56,8 @@ steps:
 
 - task: AppCenterTest@1
   inputs:
-    appFile: '../app/release/app-release.apk'
+    #appFile: '../app/release/app-release.apk'
+    appFile: '**/*.apk'
     artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
     prepareTests: false
     runTests: false
