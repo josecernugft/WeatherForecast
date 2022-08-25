@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+apply from: "$project.rootDir/gradle/jacoco.gradle"
+
 android {
     namespace 'com.josecernu.weatherforecast'
     compileSdk 32
