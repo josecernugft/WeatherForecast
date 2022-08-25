@@ -1,16 +1,4 @@
 # Android
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'AppCenterConnection'
-    appSlug: '$(app_slug)'
-    appFile: '**/app-release.apk'
-    symbolsOption: 'Android'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Notes'
-    destinationType: 'groups'
-# Build your Android project with Gradle.
-# Add steps that test, sign, and distribute the APK, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
 - master
