@@ -17,7 +17,7 @@ steps:
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
     #testResultsFiles: '**/TEST-*.xml'
-    testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+    #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
     tasks: 'assembleRelease'
   env:
     API_WEATHER_FORECAST_RELEASE: $(API_WEATHER_FORECAST_RELEASE)
@@ -32,9 +32,9 @@ steps:
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
     #testResultsFiles: '**/TEST-*.xml'
-    testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+    #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
     tasks: 'testRelease'
-    
+
 - task: AndroidSigning@2
   inputs:
     apkFiles: '**/*.apk'
@@ -64,3 +64,10 @@ steps:
     releaseNotesOption: 'input'
     releaseNotesInput: '**'
     destinationType: 'groups'
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    mergeTestResults: true
+    testRunTitle: 'Test Result'
