@@ -83,9 +83,6 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
-    testResultsFiles: '**/TEST-*.xml'
-    #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
-    #tasks: 'testRelease'
     tasks: 'createDebugCoverageReport'
 
 - task: PublishCodeCoverageResults@1
