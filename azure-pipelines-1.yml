@@ -31,9 +31,11 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkArchitectureOption: 'x64'
     jdkVersion: 1.11
-    #testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/TEST-*.xml'
     #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
-    tasks: 'testRelease'
+    #tasks: 'testRelease'
+    tasks: 'testReleaseUnitTest'
+
 
 - task: AndroidSigning@2
   inputs:
