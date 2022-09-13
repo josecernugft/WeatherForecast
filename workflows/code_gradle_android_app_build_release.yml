@@ -20,6 +20,6 @@ resources:
       name: josecernugft/WeatherForecast
       endpoint: josecernugft
 extends:
-  template: workflows/templates/template-gradle_android-deploy_app.yml@android
+  template: workflows/templates/template-gradle_android-deploy_app.yml@WeatherForecast
   parameters:
     buildType: release
