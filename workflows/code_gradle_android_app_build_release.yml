@@ -1,0 +1,25 @@
+pr:
+  - main
+  - develop
+
+trigger:
+  branches:
+    include:
+      - 'release/*'
+      - 'main'
+      - 'develop'
+  tags:
+    include:
+      - '*'
+
+resources:
+  repositories:
+    - repository: android
+      ref: main
+      type: github
+      name: josecernugft/WeatherForecast
+      endpoint: josecernugft
+extends:
+  template: workflows/templates/template-gradle_android-deploy_app.yml@android
+  parameters:
+    buildType: release

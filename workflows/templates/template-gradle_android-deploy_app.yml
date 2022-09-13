@@ -1,0 +1,96 @@
+parameters:
+  - name: 'vmImage'
+    default: 'macos-latest'
+    type: string
+
+  - name: 'buildType'
+    default: 'debug'
+    type: string
+
+jobs:
+  - job: Build
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+  steps:
+    - task: Gradle@2
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        publishJUnitResults: true
+        javaHomeOption: 'JDKVersion'
+        jdkArchitectureOption: 'x64'
+        jdkVersion: 1.11
+        #testResultsFiles: '**/TEST-*.xml'
+        #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+        tasks: 'assembleRelease'
+      env:
+        API_WEATHER_FORECAST_RELEASE: $(API_WEATHER_FORECAST_RELEASE)
+
+    - task: Gradle@2
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        publishJUnitResults: true
+        javaHomeOption: 'JDKVersion'
+        jdkArchitectureOption: 'x64'
+        jdkVersion: 1.11
+        testResultsFiles: '**/TEST-*.xml'
+        #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+        #tasks: 'testRelease'
+        tasks: 'testReleaseUnitTest'
+
+
+    - task: AndroidSigning@2
+      inputs:
+        apkFiles: '**/*.apk'
+        jarsign: true
+        jarsignerKeystoreFile: 'release.keystore'
+        jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+        jarsignerKeystoreAlias: 'key0'
+        jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+        zipalign: true
+
+    - task: AppCenterTest@1
+      inputs:
+        appFile: '**/app-release.apk'
+        artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+        prepareTests: false
+        runTests: false
+
+    #task that deploys on appcenter. Needs a service connection with appcenter using APPCENTER_APITOKEN_SRVUSR-PRO
+    - task: AppCenterDistribute@3
+      displayName: 'Deploy Appcenter'
+      inputs:
+        serverEndpoint: 'AppCenterConnection'
+        appSlug: '$(app_slug)'
+        appFile: '**/app-release.apk'
+        symbolsOption: 'Android'
+        #symbolsMappingTxtFile: '$(mapping_route)'
+        releaseNotesOption: 'input'
+        releaseNotesInput: '**'
+        destinationType: 'groups'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Test Result'
+
+    - task: Gradle@2
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        publishJUnitResults: true
+        javaHomeOption: 'JDKVersion'
+        jdkArchitectureOption: 'x64'
+        jdkVersion: 1.11
+        tasks: 'testDebugUnitTestCoverage'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'JaCoCo'
+        summaryFileLocation: '**/report.xml'
