@@ -1,0 +1,105 @@
+# Android
+
+trigger:
+- master
+
+pool:
+  vmImage: 'macos-latest'
+
+steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      yes | ~/Library/Android/sdk/tools/bin/sdkmanager --licenses --sdk_root=$ANDROID_SDK_PATH
+      #!/usr/bin/env bash
+      echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
+      $ANDROID_HOME/platform-tools/adb devices
+      echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n test_android_emulator -k 'system-images;android-27;google_apis;x86' --force
+      nohup $ANDROID_HOME/emulator/emulator -avd test_android_emulator -no-snapshot > /dev/null 2>&1 &
+      $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+      echo "Emulator started"
+      
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    jdkArchitectureOption: 'x64'
+    jdkVersion: 1.11
+    #testResultsFiles: '**/TEST-*.xml'
+    #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+    tasks: 'assembleRelease'
+  env:
+    API_WEATHER_FORECAST_RELEASE: $(API_WEATHER_FORECAST_RELEASE)
+
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    jdkArchitectureOption: 'x64'
+    jdkVersion: 1.11
+    testResultsFiles: '**/TEST-*.xml'
+    #testResultsFiles: '*/build/test-results/testReleaseUnitTest/TEST-*.xml'
+    #tasks: 'testRelease'
+    tasks: 'testReleaseUnitTest'
+
+
+- task: AndroidSigning@2
+  inputs:
+    apkFiles: '**/*.apk'
+    jarsign: true
+    jarsignerKeystoreFile: 'release.keystore'
+    jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+    jarsignerKeystoreAlias: 'key0'
+    jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+    zipalign: true
+
+- task: AppCenterTest@1
+  inputs:
+    appFile: '**/app-release.apk'
+    artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+    prepareTests: false
+    runTests: false
+
+#task that deploys on appcenter. Needs a service connection with appcenter using APPCENTER_APITOKEN_SRVUSR-PRO
+- task: AppCenterDistribute@3
+  displayName: 'Deploy Appcenter'
+  inputs:
+    serverEndpoint: 'AppCenterConnection'
+    appSlug: '$(app_slug)'
+    appFile: '**/app-release.apk'
+    symbolsOption: 'Android'
+    #symbolsMappingTxtFile: '$(mapping_route)'
+    releaseNotesOption: 'input'
+    releaseNotesInput: '**'
+    destinationType: 'groups'
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    mergeTestResults: true
+    testRunTitle: 'Test Result'
+
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    jdkArchitectureOption: 'x64'
+    jdkVersion: 1.11
+    tasks: 'testDebugUnitTestCoverage'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: '**/report.xml'
