@@ -14,11 +14,19 @@ trigger:
 
 resources:
   repositories:
-    - repository: android
+    - repository: WeatherForecast
       ref: main
       type: github
       name: josecernugft/WeatherForecast
       endpoint: josecernugft
+
+    resources:
+      repositories:
+        - repository: MyGitHubRepo # The name used to reference this repository in the checkout step
+          type: github
+          endpoint: Me
+          name: Me/MyRepo
+          ref: 79c26b351f88e5b5842570d6c7d0447524b35a43
 extends:
   template: workflows/templates/template-gradle_android-deploy_app.yml@android
   parameters:
