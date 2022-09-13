@@ -15,7 +15,7 @@ trigger:
 resources:
   repositories:
     - repository: WeatherForecast
-      ref: main
+      ref: master
       type: github
       name: josecernugft/WeatherForecast
       endpoint: josecernugft
