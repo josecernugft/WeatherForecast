@@ -39,23 +39,23 @@ jobs:
           tasks: 'assembleRelease'
         env:
           API_WEATHER_FORECAST_RELEASE: $(API_WEATHER_FORECAST_RELEASE)
-        - task: Gradle@2
-          inputs:
-            workingDirectory: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample'
-            gradleWrapperFile: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/gradlew'
-            gradleOptions: '-Xmx3072m'
-            publishJUnitResults: true
-            testResultsFiles: '**/TEST-*.xml'
-            jdkVersion: 1.11
-            tasks: 'createDebugCoverageReport'
-        - task: Bash@3
-          inputs:
-            targetType: 'inline'
-            script: |
-              find "." -type f -name "*.html"
-              find "." -type f -name "*.xml"
-        - task: PublishCodeCoverageResults@1
-          inputs:
-            codeCoverageTool: 'JaCoCo'
-            summaryFileLocation: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/report.xml'
-            reportDirectory: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/'
+      - task: Gradle@2
+        inputs:
+          workingDirectory: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample'
+          gradleWrapperFile: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/gradlew'
+          gradleOptions: '-Xmx3072m'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
+          jdkVersion: 1.11
+          tasks: 'createDebugCoverageReport'
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            find "." -type f -name "*.html"
+            find "." -type f -name "*.xml"
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: 'JaCoCo'
+          summaryFileLocation: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/report.xml'
+          reportDirectory: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/'
