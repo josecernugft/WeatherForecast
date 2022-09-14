@@ -82,3 +82,12 @@ jobs:
           codeCoverageTool: 'JaCoCo'
           summaryFileLocation: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/report.xml'
           reportDirectory: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/'
+      - task: AndroidSigning@2
+        inputs:
+          apkFiles: '**/*.apk'
+          jarsign: true
+          jarsignerKeystoreFile: 'release.keystore'
+          jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+          jarsignerKeystoreAlias: 'key0'
+          jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+          zipalign: true
