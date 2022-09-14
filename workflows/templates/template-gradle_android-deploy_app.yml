@@ -64,8 +64,8 @@ jobs:
           API_WEATHER_FORECAST_RELEASE: $(API_WEATHER_FORECAST_RELEASE)
       - task: Gradle@2
         inputs:
-          workingDirectory: '/Users/runner/work/1/s/runner/WeatherForecast'
-          gradleWrapperFile: '/Users/runner/work/1/s/runner/WeatherForecast/gradlew'
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
           gradleOptions: '-Xmx3072m'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
