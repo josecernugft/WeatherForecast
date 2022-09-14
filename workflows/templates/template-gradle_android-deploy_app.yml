@@ -21,7 +21,7 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
-            echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
+            echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
       - task: Bash@3
         inputs:
           targetType: 'inline'
@@ -36,7 +36,7 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
-            echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n test_android_emulator -k 'system-images;android-27;google_apis;x86' --force
+            echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test_android_emulator -k 'system-images;android-27;google_apis;x86' --force
       - task: Bash@3
         inputs:
           targetType: 'inline'
@@ -80,5 +80,5 @@ jobs:
       - task: PublishCodeCoverageResults@1
         inputs:
           codeCoverageTool: 'JaCoCo'
-          summaryFileLocation: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/report.xml'
-          reportDirectory: '/Users/runner/work/1/s/runner/AndroidJunitRunnerSample/app/build/reports/coverage/androidTest/debug/'
+          summaryFileLocation: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/report.xml'
+          reportDirectory: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/'
