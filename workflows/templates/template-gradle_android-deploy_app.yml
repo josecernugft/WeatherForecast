@@ -136,5 +136,4 @@ jobs:
       - task: PublishCodeCoverageResults@1
         inputs:
           codeCoverageTool: 'JaCoCo'
-          summaryFileLocation: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/report.xml'
-          reportDirectory: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/'
+          summaryFileLocation: '**/report.xml'
