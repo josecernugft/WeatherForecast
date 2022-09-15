@@ -21,7 +21,12 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
-            echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'system-images;android-32;google_apis;x86'
+            $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep system-images
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
       - task: Bash@3
         inputs:
           targetType: 'inline'
