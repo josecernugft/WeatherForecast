@@ -16,6 +16,11 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
+            sysctl -n machdep.cpu.brand_string
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
             yes | ~/Library/Android/sdk/tools/bin/sdkmanager --licenses --sdk_root=$ANDROID_SDK_PATH
       - task: Bash@3
         inputs:
@@ -26,7 +31,7 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
-            echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'system-images;android-31;default;arm64-v8a'
+            echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
       - task: Bash@3
         inputs:
           targetType: 'inline'
