@@ -91,3 +91,15 @@ jobs:
           jarsignerKeystoreAlias: 'key0'
           jarsignerKeyPassword: '$(jarsignerKeyPassword)'
           zipalign: true
+      #task that deploys on appcenter. Needs a service connection with appcenter using APPCENTER_APITOKEN_SRVUSR-PRO
+      - task: AppCenterDistribute@3
+        displayName: 'Deploy Appcenter'
+        inputs:
+          serverEndpoint: 'AppCenterConnection'
+          appSlug: '$(app_slug)'
+          appFile: '**/app-release.apk'
+          symbolsOption: 'Android'
+          #symbolsMappingTxtFile: '$(mapping_route)'
+          releaseNotesOption: 'input'
+          releaseNotesInput: '**'
+          destinationType: 'groups'
