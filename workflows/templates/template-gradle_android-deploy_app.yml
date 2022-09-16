@@ -97,11 +97,6 @@ jobs:
           script: |
             find "." -type f -name "*.html"
             find "." -type f -name "*.xml"
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          codeCoverageTool: 'JaCoCo'
-          summaryFileLocation: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/connected/report.xml'
-          reportDirectory: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/connected'
       - task: AndroidSigning@2
         inputs:
           apkFiles: '**/*.apk'
