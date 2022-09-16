@@ -132,3 +132,4 @@ jobs:
         inputs:
           codeCoverageTool: 'JaCoCo'
           summaryFileLocation: '**/report.xml'
+          reportDirectory: '/Users/runner/work/1/s/runner/WeatherForecast/app/build/reports/coverage/androidTest/debug/connected'
